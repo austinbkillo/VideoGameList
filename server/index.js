@@ -5,11 +5,12 @@ const axios = require('axios');
 const app = express();
 const PORT = 8080;
 
-app.use(express.static(path.join(__dirname, '../public')))
+app.use(express.static(path.join(__dirname, '../public')));
+app.use(express.json());
 
-app.get('/search', (req, res) => {
-  console.log(process.env.ClientID, process.env.Authorization);
-  var data = 'fields name; search "Red Dead";';
+app.post('/search', (req, res) => {
+  console.log(req.body);
+  var data = `fields name; search "${req.body.title}";`;
   var config = {
     method: 'post',
     url: 'https://api.igdb.com/v4/games',
@@ -22,12 +23,13 @@ app.get('/search', (req, res) => {
   };
 axios(config)
 .then(function (response) {
-  console.log(JSON.stringify(response.data));
+  console.log(JSON.stringify(response.data))
+  res.send(response.data)
 })
 .catch(function (error) {
   console.log(error);
+  res.send(error);
 });
-res.end();
 })
 
 

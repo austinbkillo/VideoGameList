@@ -4,11 +4,11 @@ import List from './List.jsx';
 
 
 function App(props) {
-  const [game, setGame] = useState('');
+  const [title, setTitle] = useState('');
   return (
     <>
-    <Form setGame={setGame}/>
-    <List game={game}/>
+    <Form setTitle={setTitle}/>
+    <List title={title}/>
     </>
   )
 }

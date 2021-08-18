@@ -1,12 +1,34 @@
 import React, {useState, useEffect} from 'react';
+const axios = require('axios');
 
- function Form({setGame}){
-   const handleGameChange = (e) => {
+ function Form({setTitle}){
+   const [value, setValue] = useState('');
+
+   const handleTitleChange = (e) => {
      console.log(e.target.value);
-     setGame(e.target.value);
+     setValue(e.target.value);
+   }
+   const handleSubmit = (e) => {
+     e.preventDefault();
+     console.log('submitted value is: ', value)
+     setTitle(value);
+     axios({
+       method: 'post',
+       url: '/search',
+       headers: {
+         'content-type': 'application/json'
+       },
+       data: {
+         title: value
+       }
+     })
    }
   return (
-    <input type="text" onChange={handleGameChange}/>
+    <form onSubmit={handleSubmit}>
+      <input type="text" name="title" value={value} onChange={handleTitleChange}/>
+      <input type="submit" value="Search"/>
+    </form>
+
   )
 }
 
