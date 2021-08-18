@@ -21,6 +21,11 @@ const axios = require('axios');
        data: {
          title: value
        }
+     }).then((response) => {
+       console.log('response comes back with', response.data)
+     })
+     .catch((error)=> {
+       console.error(error);
      })
    }
   return (

@@ -9,7 +9,6 @@ app.use(express.static(path.join(__dirname, '../public')));
 app.use(express.json());
 
 app.post('/search', (req, res) => {
-  console.log(req.body);
   var data = `fields name; search "${req.body.title}";`;
   var config = {
     method: 'post',
@@ -23,7 +22,7 @@ app.post('/search', (req, res) => {
   };
 axios(config)
 .then(function (response) {
-  console.log(JSON.stringify(response.data))
+  console.log('response is:', JSON.stringify(response.data))
   res.send(response.data)
 })
 .catch(function (error) {
