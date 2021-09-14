@@ -1,37 +1,37 @@
 import React, {useState, useEffect} from 'react';
 const axios = require('axios');
 
- function Form({setTitle}){
+ function Form({setSearchResults}){
    const [value, setValue] = useState('');
+   const [search, setSearch] = useState('');
 
    const handleTitleChange = (e) => {
-     console.log(e.target.value);
      setValue(e.target.value);
    }
-   const handleSubmit = (e) => {
-     e.preventDefault();
-     console.log('submitted value is: ', value)
-     setTitle(value);
-     axios({
-       method: 'post',
-       url: '/search',
-       headers: {
-         'content-type': 'application/json'
-       },
-       data: {
-         title: value
-       }
-     }).then((response) => {
-       console.log('response comes back with', response.data)
-     })
-     .catch((error)=> {
-       console.error(error);
-     })
-   }
+   useEffect(()=>{
+    axios({
+      method: 'post',
+      url: '/search',
+      headers: {
+        'content-type': 'application/json'
+      },
+      data: {
+        title: value
+      }
+    }).then((response) => {
+      console.log(response.data);
+      setSearchResults(response.data);
+    })
+    .catch((error)=> {
+      console.error(error);
+    })
+   }, [search])
   return (
-    <form onSubmit={handleSubmit}>
+    <form>
       <input type="text" name="title" value={value} onChange={handleTitleChange}/>
-      <input type="submit" value="Search"/>
+      <input type="button"value="Search" onClick={()=>{
+        setSearch(value);
+      }}/>
     </form>
 
   )

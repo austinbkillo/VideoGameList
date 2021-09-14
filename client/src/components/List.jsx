@@ -1,10 +1,11 @@
 import React from 'react';
 
-function List({game}) {
+function List({data}) {
   return (
-    <div>
-      <h3>{game}</h3>
-    </div>
+    <select size='5'>
+      {data.map(game =>
+        <option key={game.id}>{game.name}</option>)}
+    </select>
   )
 }
 

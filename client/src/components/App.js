@@ -4,11 +4,11 @@ import List from './List.jsx';
 
 
 function App(props) {
-  const [title, setTitle] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
   return (
     <>
-    <Form setTitle={setTitle}/>
-    <List title={title}/>
+    <Form setSearchResults={setSearchResults}/>
+    <List data={searchResults}/>
     </>
   )
 }
