@@ -10,6 +10,7 @@ app.use(express.json());
 
 app.post('/search', (req, res) => {
   var data = `fields name; search "${req.body.title}";`;
+  // var data = `fields *; where name = red dead`;
   var config = {
     method: 'post',
     url: 'https://api.igdb.com/v4/games',
@@ -22,12 +23,11 @@ app.post('/search', (req, res) => {
   };
 axios(config)
 .then(function (response) {
-  console.log('response is:', JSON.stringify(response.data))
   res.send(response.data)
 })
 .catch(function (error) {
   console.log(error);
-  res.send(error);
+  res.end();
 });
 })
 
